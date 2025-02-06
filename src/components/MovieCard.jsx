@@ -32,7 +32,11 @@ function MovieCard({ movie }) {
           <p>{movie.release_date?.split("-")[0]}</p>
         </div>
         <button
-          className="favorite-btn bg-blue-500 text-white px-2 py-1 mt-2 rounded-md transition duration-150 hover:bg-blue-700"
+          className={
+            favorite
+              ? "favorite-btn bg-red-500 text-white px-2 py-1 mt-2 rounded-md transition duration-150 hover:bg-red-700"
+              : "favorite-btn bg-blue-500 text-white px-2 py-1 mt-2 rounded-md transition duration-150 hover:bg-blue-700"
+          }
           type="button"
           onClick={onFavClick}
         >
