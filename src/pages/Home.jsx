@@ -70,6 +70,7 @@ function Home() {
             <input
               type="button"
               defaultValue="Search"
+              onClick={handleSearch}
               className="bg-blue-500 px-4 py-2 rounded-tr-lg rounded-br-lg text-white font-semibold hover:bg-blue-800 transition-colors cursor-pointer"
             />
           </div>

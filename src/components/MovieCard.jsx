@@ -25,11 +25,12 @@ function MovieCard({ movie }) {
 
       {/* Movie Info */}
       <div className="px-5 pt-4 pb-6 flex flex-col">
-        <h2 className="font-semibold text-center text-sm truncate">
+        <h1 className="font-semibold text-center text-sm truncate">
           {movie.title}
-        </h2>
-        <br></br>
-        <h4>{movie.release_date?.split("-")[0]}</h4>
+        </h1>
+        <div className="text-center">
+          <p>{movie.release_date?.split("-")[0]}</p>
+        </div>
         <button
           className="favorite-btn bg-blue-500 text-white px-2 py-1 mt-2 rounded-md transition duration-150 hover:bg-blue-700"
           type="button"
