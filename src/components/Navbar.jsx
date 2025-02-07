@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Navbar() {
   return (
     <div className="dark">
-      <header className="w-full bg-white drop-shadow-md">
+      <header className="w-full bg-white drop-shadow-md ">
         <div className="flex justify-between items-center text-black py-6 px-8">
           <div className="flex-grow-0">
             <a href="/" className="text-xl font-bold">

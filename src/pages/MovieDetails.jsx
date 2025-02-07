@@ -1,7 +1,11 @@
+import DetailCard from "../components/DetailCard";
+import { useMovieContext } from "../context/MovieContext";
+
 function MovieDetails() {
+  const { selectedMovie, setSelectedMovie } = useMovieContext();
   return (
     <div>
-      <h1>MovieDetails</h1>
+      <DetailCard movie={selectedMovie} />
     </div>
   );
 }
