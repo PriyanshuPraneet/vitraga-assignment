@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useMovieContext } from "../context/MovieContext";
 
 function MovieCard({ movie }) {
@@ -13,37 +14,42 @@ function MovieCard({ movie }) {
   }
 
   return (
-    <div className="transform transition duration-300 hover:scale-105 rounded-lg shadow-lg w-56 bg-white cursor-pointer">
-      {/* Movie Poster */}
-      <div className="relative w-full h-80 overflow-hidden rounded-t-lg">
-        <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title}
-          className="object-cover w-full h-full"
-        />
-      </div>
-
-      {/* Movie Info */}
-      <div className="px-5 pt-4 pb-6 flex flex-col">
-        <h1 className="font-semibold text-center text-sm truncate">
-          {movie.title}
-        </h1>
-        <div className="text-center">
-          <p>{movie.release_date?.split("-")[0]}</p>
+    <Link
+      to={`/movie/${movie.id}`}
+      className="block text-center bg-gray-100 py-2 rounded-b-lg"
+    >
+      <div className="transform transition duration-300 hover:scale-105 rounded-lg shadow-lg w-56 bg-white cursor-pointer">
+        {/* Movie Poster */}
+        <div className="relative w-full h-80 overflow-hidden rounded-t-lg">
+          <img
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={movie.title}
+            className="object-cover w-full h-full"
+          />
         </div>
-        <button
-          className={
-            favorite
-              ? "favorite-btn bg-red-500 text-white px-2 py-1 mt-2 rounded-md transition duration-150 hover:bg-red-700"
-              : "favorite-btn bg-blue-500 text-white px-2 py-1 mt-2 rounded-md transition duration-150 hover:bg-blue-700"
-          }
-          type="button"
-          onClick={onFavClick}
-        >
-          {favorite ? "Remove from Wishlist" : "Add to WishList"}
-        </button>
+
+        {/* Movie Info */}
+        <div className="px-5 pt-4 pb-6 flex flex-col">
+          <h1 className="font-semibold text-center text-sm truncate">
+            {movie.title}
+          </h1>
+          <div className="text-center">
+            <p>{movie.release_date?.split("-")[0]}</p>
+          </div>
+          <button
+            className={
+              favorite
+                ? "favorite-btn bg-red-500 text-white px-2 py-1 mt-2 rounded-md transition duration-150 hover:bg-red-700"
+                : "favorite-btn bg-blue-500 text-white px-2 py-1 mt-2 rounded-md transition duration-150 hover:bg-blue-700"
+            }
+            type="button"
+            onClick={onFavClick}
+          >
+            {favorite ? "Remove from Wishlist" : "Add to WishList"}
+          </button>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

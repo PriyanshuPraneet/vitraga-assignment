@@ -1,12 +1,21 @@
 import MovieCard from "../components/MovieCard";
 import { useState, useEffect } from "react";
-import { searchMovies, getPopularMovies } from "../services/api";
+import {
+  searchMovies,
+  getPopularMovies,
+  getTopRatedMovies,
+  getTrendingMovies,
+  getUpcomingMovies,
+} from "../services/api";
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [trending, setTrending] = useState(false);
+  const [topRated, setTopRated] = useState(false);
+  const [upcoming, setUpcoming] = useState(false);
 
   useEffect(() => {
     const loadPopularMovies = async () => {
@@ -44,6 +53,60 @@ function Home() {
     setSearchQuery("");
   };
 
+  const loadTrending = async () => {
+    setTrending(true);
+    setTopRated(false);
+    setUpcoming(false);
+    if (loading) return;
+    setLoading(true);
+    try {
+      const trendingMovies = await getTrendingMovies();
+      setMovies(trendingMovies);
+      setError(null);
+    } catch (e) {
+      console.log(e);
+      setError("Failed to load movies...");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadTopRated = async () => {
+    setTopRated(true);
+    setTrending(false);
+    setUpcoming(false);
+    if (loading) return;
+    setLoading(true);
+    try {
+      const topRatedMovies = await getTopRatedMovies();
+      setMovies(topRatedMovies);
+      setError(null);
+    } catch (e) {
+      console.log(e);
+      setError("Failed to load movies...");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadUpcoming = async () => {
+    setUpcoming(true);
+    setTopRated(false);
+    setTrending(false);
+    if (loading) return;
+    setLoading(true);
+    try {
+      const upcomingMovies = await getUpcomingMovies();
+      setMovies(upcomingMovies);
+      setError(null);
+    } catch (e) {
+      console.log(e);
+      setError("Failed to load movies...");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <form
@@ -51,8 +114,8 @@ function Home() {
         onSubmit={handleSearch}
       >
         <div className="p-5 w-full max-w-[700px]">
-          <div className="flex border border-gray-400 rounded-lg">
-            <div className="flex w-10 items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-400 bg-white p-5">
+          <div className="flex border border-gray-400 rounded-full hover:shadow-lg transition-all">
+            <div className="flex w-10 items-center justify-center rounded-l-full border-r border-gray-400 bg-white p-5">
               <svg
                 viewBox="0 0 20 20"
                 aria-hidden="true"
@@ -64,18 +127,49 @@ function Home() {
             <input
               type="text"
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full max-w-[700px] bg-white pl-2 text-base font-semibold outline-none"
+              className="w-full bg-white pl-2 text-base font-semibold outline-none rounded-l-full rounded-r-full"
               placeholder="Search..."
             />
             <input
-              type="button"
+              type="submit"
               defaultValue="Search"
-              onClick={handleSearch}
-              className="bg-blue-500 px-4 py-2 rounded-tr-lg rounded-br-lg text-white font-semibold hover:bg-blue-800 transition-colors cursor-pointer"
+              className="bg-blue-500 px-4 py-2 rounded-r-full text-white font-semibold hover:bg-blue-800 transition-colors cursor-pointer focus:ring-2 focus:ring-blue-300"
             />
           </div>
         </div>
       </form>
+      <div className="flex justify-center gap-6 p-4">
+        <button
+          className="flex items-center bg-blue-500 text-white gap-1 px-4 py-2 cursor-pointer text-gray-800 font-semibold tracking-widest rounded-md hover:bg-blue-400 duration-300 hover:gap-2 hover:translate-x-3"
+          onClick={loadTrending}
+        >
+          Trending
+        </button>
+        <button
+          className="flex items-center bg-blue-500 text-white gap-1 px-4 py-2 cursor-pointer text-gray-800 font-semibold tracking-widest rounded-md hover:bg-blue-400 duration-300 hover:gap-2 hover:translate-x-3"
+          onClick={loadUpcoming}
+        >
+          Upcoming
+        </button>
+        <button
+          className="flex items-center bg-blue-500 text-white gap-1 px-4 py-2 cursor-pointer text-gray-800 font-semibold tracking-widest rounded-md hover:bg-blue-400 duration-300 hover:gap-2 hover:translate-x-3"
+          onClick={loadTopRated}
+        >
+          Top Rated
+        </button>
+      </div>
+      <div className="p-4">
+        <h4 className="text-xl font-bold text-gray-800 tracking-wide uppercase">
+          {trending
+            ? "Trending"
+            : topRated
+            ? "Top Rated"
+            : upcoming
+            ? "Upcoming"
+            : "Popular"}{" "}
+          Movies
+        </h4>
+      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
         {movies.map((movie) => (
