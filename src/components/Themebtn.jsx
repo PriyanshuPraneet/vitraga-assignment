@@ -1,8 +1,10 @@
-import { useState } from "react";
+import React from "react";
+import { useTheme } from "../context/ThemeContext";
 
 function Themebtn() {
+  const { isDarkMode, toggleTheme } = useTheme();
   const onChangeBtn = () => {
-    console.log("Theme changed");
+    toggleTheme();
   };
 
   return (
@@ -11,6 +13,7 @@ function Themebtn() {
         className="peer hidden"
         id="toggle"
         type="checkbox"
+        checked={isDarkMode} // Set checkbox state based on current theme
         onChange={onChangeBtn}
       />
       <div className="relative w-[60px] h-[30px] bg-white peer-checked:bg-zinc-500 rounded-full after:absolute after:content-[''] after:w-[20px] after:h-[20px] after:bg-gradient-to-r from-orange-500 to-yellow-400 peer-checked:after:from-zinc-900 peer-checked:after:to-zinc-900 after:rounded-full after:top-[5px] after:left-[5px] active:after:w-[25px] peer-checked:after:left-[60px] peer-checked:after:translate-x-[-100%] shadow-sm duration-300 after:duration-300 after:shadow-md cursor-pointer" />

@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { useMovieContext } from "../context/MovieContext";
+import { ThemeProvider, useTheme } from "../context/ThemeContext";
 
 function MovieCard({ movie }) {
+  const { isDarkMode } = useTheme();
   const { isFavorite, addToFavorites, removeFromFavorites, setSelectedMovie } =
     useMovieContext();
   const favorite = isFavorite(movie.id);
@@ -20,8 +22,8 @@ function MovieCard({ movie }) {
   }
 
   return (
-    <div className="dark">
-      <div className="transform transition duration-300 hover:scale-105 rounded-lg shadow-lg w-56 bg-white cursor-pointer">
+    <div className={`${isDarkMode && "dark"}`}>
+      <div className="transform transition duration-300 hover:scale-105 rounded-lg shadow-lg w-56 bg-white cursor-pointer dark:bg-gray-800">
         {/* Movie Poster */}
         <div onClick={onCardClick}>
           <Link to={`/movie/${movie.id}`}>
@@ -34,11 +36,11 @@ function MovieCard({ movie }) {
             </div>
 
             {/* Movie Info */}
-            <div className="px-5 pt-4 pb-6 flex flex-col">
-              <h1 className="font-semibold text-center text-sm truncate">
+            <div className="px-5 pt-4 pb-6 flex flex-col dark:bg-gray-800">
+              <h1 className="font-semibold text-center text-sm truncate dark:text-white">
                 {movie.title}
               </h1>
-              <div className="text-center">
+              <div className="text-center dark:text-white">
                 <p>{movie.release_date?.split("-")[0]}</p>
               </div>
               <button

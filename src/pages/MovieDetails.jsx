@@ -1,11 +1,17 @@
 import DetailCard from "../components/DetailCard";
 import { useMovieContext } from "../context/MovieContext";
+import { ThemeProvider, useTheme } from "../context/ThemeContext";
 
 function MovieDetails() {
+  const { isDarkMode } = useTheme();
   const { selectedMovie, setSelectedMovie } = useMovieContext();
   return (
-    <div>
-      <DetailCard movie={selectedMovie} />
+    <div className={`${isDarkMode && "dark"}`}>
+      <div className="dark:bg-gray-900 min-h-screen">
+        <div className="pt-24">
+          <DetailCard movie={selectedMovie} />
+        </div>
+      </div>
     </div>
   );
 }
