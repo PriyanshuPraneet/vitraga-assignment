@@ -6,7 +6,7 @@ const ThemeContext = createContext();
 
 // ThemeProvider component that will wrap the app
 export const ThemeProvider = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   // Function to toggle the theme
   const toggleTheme = () => {

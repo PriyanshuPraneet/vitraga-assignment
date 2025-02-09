@@ -14,7 +14,7 @@ function Favorites() {
             Your Wishlist
           </h1>
           {favorites.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 dark:bg-gray-700">
               {favorites.map((movie) => (
                 <MovieCard movie={movie} key={movie.id} />
               ))}
